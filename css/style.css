@@ -33,10 +33,9 @@ h1 span, h2 span, h3 span, h4 span {
 
 .image {
   display: inline-block;
-  margin: 10px;
-  width: 200px;
+  margin: 5px;
+  width: 300px;
   height: 200px;
-  background-color: #ccc;
   background-size: cover;
   background-position: center;
   cursor: pointer;
@@ -55,11 +54,14 @@ h1 span, h2 span, h3 span, h4 span {
 }
 
 .modal-content {
-  margin: 25px auto;
+  margin: auto;
   display: block;
   width: 80%;
-  max-width: 800px;
-  max-height: 80%;
+  max-height: 512px;
+  max-width: 768px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .modal-content img {
@@ -67,6 +69,30 @@ h1 span, h2 span, h3 span, h4 span {
   height: 100%;
   object-fit: contain;
 }
+
+.modal-prev,
+.modal-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: -15px; /* add this rule to center vertically */
+}
+
+.modal-prev {
+  left: 10px;
+}
+
+.modal-next {
+  right: 10px;
+  left: auto; /* add this rule to remove the left positioning */
+}
+
 
 .close {
   color: #fff;
@@ -120,8 +146,7 @@ a:link, a:visited, a:active {
 
 #wrapper {
   margin: auto;
-  width: 95%;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 #gallery {

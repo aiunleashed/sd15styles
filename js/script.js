@@ -11,7 +11,7 @@ function setPagination() {
   var paginationBottom = document.querySelectorAll('.pagination')[1];
   var prevLink = document.createElement('a');
   prevLink.href = '?p=' + (currentPage - 1);
-  prevLink.textContent = '« Prev';
+  prevLink.textContent = '«';
   if (currentPage === 1) {
     prevLink.classList.add('disabled');
     prevLink.removeAttribute('href');
@@ -35,7 +35,7 @@ function setPagination() {
   
   var nextLink = document.createElement('a');
   nextLink.href = '?p=' + (currentPage + 1);
-  nextLink.textContent = 'Next »';
+  nextLink.textContent = '»';
   if (currentPage === totalPages) {
     nextLink.classList.add('disabled');
     nextLink.removeAttribute('href');
@@ -87,10 +87,6 @@ function initGallery() {
     stopImage = numImages;
   }
 
-  // console.log('pageNum:', pageNum);
-  // console.log('startImage:', startImage);
-  // console.log('stopImage:', stopImage);
-  
   var results = document.getElementById('results');
   var gallery = document.getElementById('gallery');
   var imgPrefix = `imgthumb/${pageNum}/`;
@@ -116,27 +112,78 @@ function openModal(src) {
   modalImage.setAttribute('src', imagePath);
   modal.style.display = 'block';
 
+  // Add check to set currentImage to initial value
+  var currentImage = imagePath;
+
   var close = document.getElementsByClassName('close')[0];
   close.addEventListener('click', function() {
     closeModal();
   });
 
-  window.addEventListener('click', function(event) {
-    if (event.target == modal) {
-      closeModal();
-    }
+  var prev = document.getElementsByClassName('modal-prev')[0];
+  prev.addEventListener('click', function() {
+    navigate(-1);
   });
 
-  window.addEventListener('keydown', function(event) {
-    if (event.keyCode === 27) {
-      closeModal();
-    }
+  var next = document.getElementsByClassName('modal-next')[0];
+  next.addEventListener('click', function() {
+    navigate(1);
   });
+
+  var images = [];
+  var gallery = document.getElementById('gallery');
+  var galleryImages = gallery.querySelectorAll('.image');
+  for (var i = 0; i < galleryImages.length; i++) {
+    var image = galleryImages[i].getAttribute('data-src');
+    images.push(image);
+  }
+
+  var touchStartX = null;
+
+  function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+  }
+
+  function handleTouchEnd(event) {
+    var touchEndX = event.changedTouches[0].clientX;
+    var swipeDistance = touchEndX - touchStartX;
+
+    if (swipeDistance < 0) {
+      navigate(1); // swipe left
+    } else if (swipeDistance > 0) {
+      navigate(-1); // swipe right
+    }
+  }
+
+  modalImage.addEventListener('touchstart', handleTouchStart);
+  modalImage.addEventListener('touchend', handleTouchEnd);
+
+  function navigate(direction) {
+    // Use currentImage variable to set initial currentIndex
+    var currentIndex = images.indexOf(currentImage);
+    var nextIndex = currentIndex + direction;
+
+    if (nextIndex < 0) {
+      nextIndex = images.length - 1;
+    } else if (nextIndex >= images.length) {
+      nextIndex = 0;
+    }
+
+    var nextImage = images[nextIndex];
+    var nextImagePath = nextImage.replace('imgthumb/', 'imgfull/');
+
+    document.getElementById('modal-image').setAttribute('src', nextImagePath);
+
+    // Update currentImage variable after navigation
+    currentImage = nextImage;
+  }
 }
+
 
 function closeModal() {
   var modal = document.getElementById('modal');
   modal.style.display = 'none';
+  document.getElementById('modal-image').setAttribute('src', '');
 }
 
 window.addEventListener('scroll', lazyLoadImages);
@@ -145,4 +192,3 @@ window.addEventListener('orientationchange', lazyLoadImages);
 
 initGallery();
 setPagination();
-
