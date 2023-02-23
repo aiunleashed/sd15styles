@@ -57,6 +57,7 @@ h1 span, h2 span, h3 span, h4 span {
   margin: auto;
   display: block;
   width: 80%;
+  height: 80%;
   max-height: 512px;
   max-width: 768px;
   position: relative;
