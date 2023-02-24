@@ -68,9 +68,25 @@ function createImage(src) {
   return div;
 }
 
+// function lazyLoadImages() {
+//   var images = document.querySelectorAll('.image');
+//   var windowHeight = window.innerHeight;
+
+//   for (var i = 0; i < images.length; i++) {
+//     var rect = images[i].getBoundingClientRect();
+
+//     if (rect.bottom >= 0 && rect.top < windowHeight) {
+//       var src = images[i].getAttribute('data-src');
+//       images[i].style.backgroundImage = 'url(' + src + ')';
+//     }
+//   }
+// }
+
 function lazyLoadImages() {
   var images = document.querySelectorAll('.image');
   var windowHeight = window.innerHeight;
+
+  var unloadedImages = [];
 
   for (var i = 0; i < images.length; i++) {
     var rect = images[i].getBoundingClientRect();
@@ -78,9 +94,31 @@ function lazyLoadImages() {
     if (rect.bottom >= 0 && rect.top < windowHeight) {
       var src = images[i].getAttribute('data-src');
       images[i].style.backgroundImage = 'url(' + src + ')';
+      images[i].setAttribute('data-loaded', 'true');
+    } else if (images[i].getAttribute('data-loaded') !== 'true') {
+      unloadedImages.push(images[i]);
+    }
+  }
+
+  if (unloadedImages.length > 0) {
+    var scrollBox = document.getElementById('scroll-box');
+    if (scrollBox) {
+      scrollBox.style.display = 'block';
+    } else {
+      scrollBox = document.createElement('div');
+      scrollBox.id = 'scroll-box';
+      scrollBox.textContent = 'Scroll for more';
+      document.body.appendChild(scrollBox);
+    }
+  } else {
+    var scrollBox = document.getElementById('scroll-box');
+    if (scrollBox) {
+      scrollBox.style.display = 'none';
     }
   }
 }
+
+
 
 function initGallery() {
   var numImages = 100;
