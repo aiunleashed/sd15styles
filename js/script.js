@@ -42,6 +42,14 @@ function setPagination() {
   }
   paginationTop.appendChild(nextLink);
   paginationBottom.appendChild(nextLink.cloneNode(true));
+
+  var aboutDiv = document.getElementById('about');
+  if (currentPage > 1) {
+    aboutDiv.style.display = 'none';
+  } else {
+    aboutDiv.style.display = 'block';
+  }
+
 };
 
 
