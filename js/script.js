@@ -60,27 +60,12 @@ function setPagination() {
 
 };
 
-
 function createImage(src) {
   var div = document.createElement('div');
   div.classList.add('image');
   div.style.backgroundImage = 'url(' + src + ')';
   return div;
 }
-
-// function lazyLoadImages() {
-//   var images = document.querySelectorAll('.image');
-//   var windowHeight = window.innerHeight;
-
-//   for (var i = 0; i < images.length; i++) {
-//     var rect = images[i].getBoundingClientRect();
-
-//     if (rect.bottom >= 0 && rect.top < windowHeight) {
-//       var src = images[i].getAttribute('data-src');
-//       images[i].style.backgroundImage = 'url(' + src + ')';
-//     }
-//   }
-// }
 
 function lazyLoadImages() {
   var images = document.querySelectorAll('.image');
@@ -107,7 +92,7 @@ function lazyLoadImages() {
     } else {
       scrollBox = document.createElement('div');
       scrollBox.id = 'scroll-box';
-      scrollBox.textContent = 'Scroll for more';
+      scrollBox.textContent = 'Scroll for more...';
       document.body.appendChild(scrollBox);
     }
   } else {
@@ -117,7 +102,6 @@ function lazyLoadImages() {
     }
   }
 }
-
 
 
 function initGallery() {
@@ -159,15 +143,13 @@ function initGallery() {
   results.innerHTML = `Displaying ${startImage} to ${stopImage}`;
 }
 
+
 function openModal(src) {
   var modal = document.getElementById('modal');
   var modalImage = document.getElementById('modal-image');
   var imagePath = src.replace('imgthumb/', 'imgfull/');
   modalImage.setAttribute('src', imagePath);
   modal.style.display = 'block';
-
-  // Add check to set currentImage to initial value
-  var currentImage = imagePath;
 
   var currentImageIndex;
 
@@ -251,7 +233,6 @@ function openModal(src) {
     }
   });
 }
-
 
 
 function closeModal() {

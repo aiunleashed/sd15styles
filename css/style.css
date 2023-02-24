@@ -85,7 +85,7 @@ li {
   top: 50%;
   transform: translateY(-50%);
   font-size: 24px;
-  color: white;
+  color: #fafafa;
   background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
   text-decoration: none;
@@ -100,16 +100,6 @@ li {
 .modal-next {
   right: 10px;
   left: auto; /* add this rule to remove the left positioning */
-}
-
-#scroll-box {
-  color: #fafafa;
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #2196F3;
-  padding: 10px;
 }
 
 .close {
@@ -156,6 +146,16 @@ a:link, a:visited, a:active {
   border: 1px solid #2196F3;
   background: none;
   color: #2196F3;
+}
+
+#scroll-box {
+  color: #fafafa;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2196F3;
+  padding: 10px;
 }
 
 #results {
