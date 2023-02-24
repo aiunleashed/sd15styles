@@ -101,6 +101,13 @@ function lazyLoadImages() {
       scrollBox.style.display = 'none';
     }
   }
+
+  window.addEventListener('scroll', function() {
+    var scrollBox = document.getElementById('scroll-box');
+    if (scrollBox) {
+      scrollBox.style.display = 'none';
+    }
+  });
 }
 
 
