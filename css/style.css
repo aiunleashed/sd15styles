@@ -4,7 +4,7 @@
 
 body {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-  font-size: calc(12px + 0.390625vw);
+  font-size: calc(15px + 0.390625vw);
   color: #222222;
   background-color: #fafafa;
   margin: 10px;
@@ -12,6 +12,15 @@ body {
 
 h1 span, h2 span, h3 span, h4 span {
   font-weight: normal;
+}
+
+ul {
+  padding-left: 15px;
+}
+
+li {
+  font-size: 12px;
+  padding-left: 0;
 }
 
 .branding {
@@ -141,6 +150,7 @@ a:link, a:visited, a:active {
 }
 
 #results {
+  font-size: 12px;
   text-align: center;
 }
 
@@ -158,6 +168,7 @@ a:link, a:visited, a:active {
 }
 
 #footer {
+  font-size: 12px;
   text-align: center;
 }
 
