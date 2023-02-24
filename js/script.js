@@ -115,6 +115,8 @@ function openModal(src) {
   // Add check to set currentImage to initial value
   var currentImage = imagePath;
 
+  var currentImageIndex;
+
   var close = document.getElementsByClassName('close')[0];
   close.addEventListener('click', function() {
     closeModal();
@@ -134,9 +136,15 @@ function openModal(src) {
   var gallery = document.getElementById('gallery');
   var galleryImages = gallery.querySelectorAll('.image');
   for (var i = 0; i < galleryImages.length; i++) {
-    var image = galleryImages[i].getAttribute('data-src');
-    images.push(image);
-  }
+    var imageSrc = galleryImages[i].getAttribute('data-src');
+    if (imageSrc) {
+      var image = imageSrc.replace('imgthumb/', 'imgfull/');
+      images.push(image);
+      if (image === imagePath) {
+        currentImageIndex = images.length - 1;
+      }
+    }
+  }  
 
   var touchStartX = null;
 
@@ -159,25 +167,37 @@ function openModal(src) {
   modalImage.addEventListener('touchend', handleTouchEnd);
 
   function navigate(direction) {
-    // Use currentImage variable to set initial currentIndex
-    var currentIndex = images.indexOf(currentImage);
+    // Use currentImageIndex variable to set initial currentIndex
+    var currentIndex = currentImageIndex;
     var nextIndex = currentIndex + direction;
-
+  
     if (nextIndex < 0) {
       nextIndex = images.length - 1;
     } else if (nextIndex >= images.length) {
       nextIndex = 0;
     }
-
+  
     var nextImage = images[nextIndex];
     var nextImagePath = nextImage.replace('imgthumb/', 'imgfull/');
-
+  
     document.getElementById('modal-image').setAttribute('src', nextImagePath);
-
+  
     // Update currentImage variable after navigation
     currentImage = nextImage;
-  }
+    currentImageIndex = nextIndex;
+  }  
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowLeft') {
+      // Left arrow key pressed
+      navigate(-1);
+    } else if (event.key === 'ArrowRight') {
+      // Right arrow key pressed
+      navigate(1);
+    }
+  });
 }
+
 
 
 function closeModal() {
