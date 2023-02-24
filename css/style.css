@@ -84,13 +84,11 @@ li {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 24px;
+  font-size: 36px;
   color: #fafafa;
-  background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  margin-top: -15px; /* add this rule to center vertically */
 }
 
 .modal-prev {
@@ -105,9 +103,9 @@ li {
 .close {
   color: #fafafa;
   position: absolute;
-  top: 10px;
-  right: 25px;
-  font-size: 35px;
+  top: 15px;
+  right: 15px;
+  font-size: 36px;
   font-weight: bold;
   cursor: pointer;
 }
