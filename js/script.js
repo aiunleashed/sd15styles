@@ -5,11 +5,19 @@ function getParameterByName(name) {
 
 function setPagination() {
   var totalPages = 20;
-  var currentPage = parseInt(getParameterByName('p')) || 1;
+  var currentPage;
   var maxVisiblePages = 3; // max page links
   var paginationTop = document.querySelectorAll('.pagination')[0];
   var paginationBottom = document.querySelectorAll('.pagination')[1];
   var prevLink = document.createElement('a');
+
+  var currentPage = getParameterByName('p');
+  if (isNaN(currentPage) || currentPage < 1 || currentPage > totalPages) {
+    currentPage = 1;
+    window.location.search = '?p=1';
+  }
+
+  currentPage = parseInt(getParameterByName('p')) || 1;
   prevLink.href = '?p=' + (currentPage - 1);
   prevLink.textContent = '«';
   if (currentPage === 1) {
